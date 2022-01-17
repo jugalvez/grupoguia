@@ -1,0 +1,87 @@
+{% extends 'products/base.html' %}
+
+{% block title %} Shopping Cart {% endblock %}
+{% block meta %} Shopping cart section {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <table class="table table-stripped">
+            <thead>
+                <tr class="text-center">
+                    <th></th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="products"></tbody>
+        </table>
+
+        <a href="/checkout" class="btn btn-primary">Checkout</a>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let products = localStorage.getItem("products");
+
+            $.ajax({
+              url: "/checkout/payment",
+              contentType: "application/json; charset=utf-8",
+              data: {'data': products},
+              dataType : "json",
+              success: function( result ) {
+                alert('chido')
+              }
+            });
+        })
+    </script>
+
+    <script>
+        let products = localStorage.getItem("products");
+        products = JSON.parse(products)
+        let table = "";
+        let grantTotal = 0
+
+        for (let i = 0; i < products.length; i++) {
+            const product = products[i]
+            let total = product.price * product.quantity
+            total = total.toFixed(2)
+            grantTotal += Number(total)            
+
+            let tr = "<tr class='text-center'>";
+                tr += `<td> <img src="${product.image}" alt="${product.name}" class="imgTable"></td>`;
+                tr += `<td> <a href="/details/${product.slug}" target="_blank">${product.name}</a> </td>`;
+                tr += `<td> $ ${product.price} </td>`;
+                tr += `<td> ${product.quantity} </td>`;
+                tr += `<td> $ ${total} </td>`;
+                tr += "</tr>";
+                table += tr;
+        }
+
+        const lastRow = `
+            <tr>
+                <td colspan="4"></td>
+                <td class="text-center"><strong>$ ${grantTotal.toFixed(2)}</strong></td>
+            </tr>
+        `;
+
+        table += lastRow
+        
+        document.getElementById("products").innerHTML += table;
+    </script>
+
+{% endblock %}
+
+{% block css %}
+    .table th {
+        font-weight: 500;
+    }
+    .imgTable {
+        width: 50px;
+    }
+
+
+{% endblock %}

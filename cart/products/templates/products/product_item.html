@@ -1,0 +1,13 @@
+<div class="card col-3">
+  <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}">
+  <div class="card-body">
+    <h3 class="card-title">{{ product.name }}</h3>
+
+    <p class="card-text">
+        {{ product.description }}
+    </p>
+    <a href="{% url 'details' slug=product.slug %}" class="btn btn-primary">View details</a>
+    
+    {% include 'products/add_cart.html' %}
+  </div>
+</div>

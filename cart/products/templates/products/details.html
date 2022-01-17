@@ -1,0 +1,50 @@
+{% extends 'products/base.html' %}
+
+{% block title %} {{ product.name }} | {{ product.seo_title }} {% endblock %}
+{% block meta %} {{ product.seo_meta_description }} {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-7">
+                <img src="{{ product.image.url }}" alt="{{ product }}" class="img-fluid">
+            </div>
+            <div class="offset-1 col-4">
+                <h1>{{ product.name }}</h1>
+                
+                {% include 'products/add_cart.html' %}
+                
+                <hr />
+                <p class="mt-3">
+                    <span class="title">Price:</span> ${{ product.price }}
+                </p>
+                <p class="my-3">
+                    <span class="title">SKU:</span> {{ product.sku }}
+                </p>
+                <p>
+                    <span class="title">Description:</span>
+                    <br>
+                    {{ product.description }}
+                </p>
+            </div>
+        </div>
+
+        {% if similar_products %}
+            <div class="row mt-5">
+                <h2>Other interesting products</h2>
+
+                {% for similar in similar_products %}
+                    {% include 'products/product_item.html' %} 
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block css %}
+    .title {
+        font-weight: 500;
+    }
+
+
+{% endblock %}

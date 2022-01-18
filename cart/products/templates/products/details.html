@@ -9,7 +9,7 @@
             <div class="col-7">
                 <img src="{{ product.image.url }}" alt="{{ product }}" class="img-fluid">
             </div>
-            <div class="offset-1 col-4">
+            <div class="offset-1 col-4 bg-light p-4">
                 <h1>{{ product.name }}</h1>
                 
                 {% include 'products/add_cart.html' %}
@@ -31,7 +31,7 @@
 
         {% if similar_products %}
             <div class="row mt-5">
-                <h2>Other interesting products</h2>
+                <h2 class="mb-4">Other interesting products</h2>
 
                 {% for similar in similar_products %}
                     {% include 'products/product_item.html' %} 

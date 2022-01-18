@@ -35,6 +35,10 @@ def cart(request):
 
 
 def checkout(request):
+    return render(request, 'products/checkout.html')
+
+
+def payment(request):
     resultados = []
     data = { 'message': 'Error', 'status': 400 }
 
@@ -63,4 +67,5 @@ def checkout(request):
                 
                 data = { 'message': 'Purchase completed', 'status': 200 }
 
+    data = json.dumps(data)
     return HttpResponse(data, content_type="application/json")

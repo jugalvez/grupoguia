@@ -4,7 +4,7 @@
 {% block meta %} Shopping cart section {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container bg-light p-4">
         <table class="table table-stripped">
             <thead>
                 <tr class="text-center">
@@ -18,26 +18,8 @@
             <tbody id="products"></tbody>
         </table>
 
-        <a href="/checkout" class="btn btn-primary">Checkout</a>
+        <a href="/checkout" class="btn btn-primary mt-5 float-end">Checkout</a>
     </div>
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            let products = localStorage.getItem("products");
-
-            $.ajax({
-              url: "/checkout/payment",
-              contentType: "application/json; charset=utf-8",
-              data: {'data': products},
-              dataType : "json",
-              success: function( result ) {
-                alert('chido')
-              }
-            });
-        })
-    </script>
 
     <script>
         let products = localStorage.getItem("products");
@@ -82,6 +64,5 @@
     .imgTable {
         width: 50px;
     }
-
 
 {% endblock %}
